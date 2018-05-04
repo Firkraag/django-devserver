@@ -12,8 +12,7 @@ __all__ = ('track', 'stats')
 
 
 class StatCollection(object):
-    def __init__(self, *args, **kwargs):
-        super(StatCollection, self).__init__(*args, **kwargs)
+    def __init__(self):
         self.reset()
 
     def run(self, func, key, logger, *args, **kwargs):

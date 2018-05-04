@@ -44,19 +44,19 @@ def load_modules():
 
     for path in settings.DEVSERVER_MODULES:
         try:
-            name, class_name = path.rsplit('.', 1)
+            module_name, class_name = path.rsplit('.', 1)
         except ValueError:
             raise exceptions.ImproperlyConfigured, '%s isn\'t a devserver module' % path
 
         try:
-            module = __import__(name, {}, {}, [''])
+            module = __import__(module_name, {}, {}, [''])
         except ImportError, e:
-            raise exceptions.ImproperlyConfigured, 'Error importing devserver module %s: "%s"' % (name, e)
+            raise exceptions.ImproperlyConfigured, 'Error importing devserver module %s: "%s"' % (module_name, e)
 
         try:
             cls = getattr(module, class_name)
         except AttributeError:
-            raise exceptions.ImproperlyConfigured, 'Error importing devserver module "%s" does not define a "%s" class' % (name, class_name)
+            raise exceptions.ImproperlyConfigured, 'Error importing devserver module "%s" does not define a "%s" class' % (module_name, class_name)
 
         try:
             instance = cls(GenericLogger(cls))

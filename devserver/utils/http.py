@@ -21,7 +21,7 @@ class SlimWSGIRequestHandler(WSGIRequestHandler):
     """
     def handle(self, *args, **kwargs):
         self._start_request = datetime.now()
-        return WSGIRequestHandler.handle(self, *args, **kwargs)
+        return super(SlimWSGIRequestHandler, self).handle(self, *args, **kwargs)
 
     def get_environ(self):
         env = super(SlimWSGIRequestHandler, self).get_environ()
